@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>B4H Exercise Idea Library</title>
+<meta name="description" content="Boxing 4 Health instructor resource: exercise ideas for class rounds, with demo videos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#F2F4F7; --surface:#FFFFFF; --surface-2:#E8ECF2; --ink:#122B4F; --ink-2:#4A5B73; --line:#D5DCE6;
+  --gold:#C9A24B; --gold-ink:#8A6A22;
+  --btn:#122B4F; --btn-ink:#FFFFFF; --focus:#C9A24B;
+  --c-cognitive:#1F5F8B; --c-strength:#8A3E2B; --c-pwr:#6B4FA0; --c-pdwarrior:#1F4B3F;
+  --c-balance:#2A6B6B; --c-fall:#A33A5E; --c-finemotor:#8A6A22; --c-voice:#B5642A;
+  --shadow:0 1px 2px rgba(18,43,79,.06),0 8px 24px rgba(18,43,79,.08);
+  --display:Oswald,"Palatino Linotype",Palatino,Georgia,serif;
+  --serif:"Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --body:"Public Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0D1726; --surface:#15233A; --surface-2:#1D2E48; --ink:#E6ECF4; --ink-2:#A3B1C6; --line:#2A3D5C;
+  --gold:#D9B66A; --gold-ink:#E3C47E;
+  --btn:#D9B66A; --btn-ink:#0D1726; --focus:#D9B66A;
+  --c-cognitive:#7FB6E0; --c-strength:#E0917A; --c-pwr:#B7A0E6; --c-pdwarrior:#7CC2A6;
+  --c-balance:#79C6C6; --c-fall:#E891AE; --c-finemotor:#D9B66A; --c-voice:#E8A36B;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.3);
+}}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--body);padding-inline:16px;
+  padding-block:env(safe-area-inset-top,0px) calc(64px + env(safe-area-inset-bottom,0px))}
+img{max-width:100%}
+.wrap{max-width:1180px;margin:0 auto}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+header.top{padding-block:34px 20px;display:flex;flex-wrap:wrap;gap:16px 32px;align-items:flex-end;justify-content:space-between;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-ink);font-weight:600}
+h1{font-family:var(--display);font-weight:500;letter-spacing:.01em;text-transform:uppercase;font-size:clamp(28px,4.6vw,42px);line-height:1.05;margin:8px 0 10px;text-wrap:balance}
+.lede{color:var(--ink-2);max-width:64ch;margin:0;font-family:var(--serif);font-size:16px}
+.btn{border:0;border-radius:8px;padding:10px 16px;font-weight:600;cursor:pointer;background:var(--btn);color:var(--btn-ink);display:inline-flex;align-items:center;gap:8px;white-space:nowrap;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.rounds{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:10px;padding-block:20px 4px}
+.round{border:1px solid var(--line);background:var(--surface);border-radius:9px;padding:11px 13px;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:3px;border-left:4px solid var(--c,var(--line))}
+.round:hover{box-shadow:var(--shadow)}
+.round[aria-pressed="true"]{background:var(--c);border-color:var(--c);color:var(--bg)}
+.round[aria-pressed="true"] .rc{color:var(--bg);opacity:.85}
+.round b{font-family:var(--display);font-weight:500;text-transform:uppercase;letter-spacing:.03em;font-size:14px}
+.rc{font-size:12px;color:var(--ink-2)}
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding-block:18px 6px}
+.search{flex:1 1 240px;position:relative}
+.search input{width:100%;padding:10px 12px 10px 36px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+.search svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--ink-2)}
+select.f{padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+.meta-row{display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--ink-2);font-size:13px;padding-block:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;text-align:left;padding:0;transition:transform .15s,box-shadow .15s;border-top:3px solid var(--c,var(--line));width:100%}
+.card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.thumb{aspect-ratio:16/9;max-width:100%;background:var(--surface-2);position:relative;display:grid;place-items:center;overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb .ph{display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--ink-2);font-size:12px;text-align:center;padding:8px}
+.play{position:absolute;right:10px;bottom:10px;width:34px;height:34px;border-radius:50%;background:rgba(13,23,38,.75);display:grid;place-items:center;color:#fff}
+.card-b{padding:13px 15px 15px;display:flex;flex-direction:column;gap:7px;flex:1}
+.card h3{font-family:var(--serif);font-weight:400;font-size:19px;line-height:1.2;margin:0}
+.card p{margin:0;color:var(--ink-2);font-size:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:5px}
+.tag{font-size:12px;padding:3px 8px;border-radius:5px;background:var(--surface-2);color:var(--ink-2);display:inline-flex;align-items:center;gap:6px}
+.tag.cat{color:var(--c);background:transparent;border:1px solid var(--c);font-weight:600}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--c,var(--ink-2));flex:none}
+.empty{padding:44px 16px;text-align:center;color:var(--ink-2);border:1px dashed var(--line);border-radius:10px;grid-column:1/-1}
+.print-only,.card .detail{display:none}
+dialog{border:0;border-radius:12px;padding:0;background:var(--surface);color:var(--ink);width:min(820px,calc(100vw - 32px));max-height:calc(100dvh - 32px);box-shadow:var(--shadow)}
+dialog::backdrop{background:rgba(8,16,28,.6)}
+.dlg-h{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:20px 22px 0}
+.dlg-h h2{font-family:var(--serif);font-weight:400;font-size:27px;line-height:1.15;margin:6px 0 0}
+.x{background:transparent;border:0;cursor:pointer;color:var(--ink-2);padding:4px;border-radius:6px}
+.dlg-b{padding:16px 22px 24px;display:flex;flex-direction:column;gap:17px}
+.players{display:grid;gap:14px}
+.players.two{grid-template-columns:1fr 1fr}
+.pl{display:flex;flex-direction:column;gap:5px}
+.pl h5{margin:0;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink);font-weight:700}
+.frame{aspect-ratio:9/16;max-height:60vh;background:#000;border-radius:8px;overflow:hidden}
+.frame.wide{aspect-ratio:16/9}
+.frame iframe{width:100%;height:100%;border:0;display:block}
+.noplayer{aspect-ratio:16/9;border-radius:8px;background:var(--surface-2);display:grid;place-items:center;text-align:center;color:var(--ink-2);padding:16px}
+.sec h4{margin:0 0 4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink);font-weight:700}
+.sec p{margin:0;white-space:pre-wrap;max-width:68ch}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:17px}
+.facts{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;color:var(--ink-2)}
+.facts b{color:var(--ink);font-weight:600}
+footer.foot{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);color:var(--ink-2);font-size:13px;display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between}
+@media (max-width:620px){.cols,.players.two{grid-template-columns:1fr}.dlg-h h2{font-size:23px}.frame{max-height:52vh}}
+@media print{
+  :root{--bg:#fff;--surface:#fff;--surface-2:#fff;--ink:#111;--ink-2:#444;--line:#bbb}
+  body{padding:0;font-size:11pt}
+  .tools,.rounds,.hdr-btns,.status,dialog,.thumb,footer.foot{display:none!important}
+  .print-only{display:block}
+  .grid{display:block}
+  .card{break-inside:avoid;page-break-inside:avoid;border:0;border-top:1px solid #bbb;border-radius:0;padding:10px 0;box-shadow:none;transform:none}
+  .card p{-webkit-line-clamp:unset;display:block}
+  .card .detail{display:block;font-size:10pt;color:#333;margin-top:6px}
+  .card .detail h4{margin:6px 0 1px;font-size:8.5pt;letter-spacing:.1em;text-transform:uppercase}
+  .card .detail p{white-space:pre-wrap;margin:0}
+  header.top{padding-block:0 8px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="eyebrow">Boxing 4 Health · Instructor Resources</div>
+      <h1>Exercise Idea Library</h1>
+      <p class="lede">Drills to pull from when you build your rounds — strength, PWR!Moves, PD Warrior, balance, fall training, cognitive, fine motor and voice. Filter by class level, watch the demo, then take it to the floor.</p>
+    </div>
+    <div class="hdr-btns"><button class="btn ghost" id="printBtn">Print list</button></div>
+  </header>
+
+  <div class="rounds" id="cats" role="group" aria-label="Exercise category"></div>
+
+  <div class="tools">
+    <div class="search">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.6"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <input id="q" type="search" placeholder="Search drills, cues, equipment…" aria-label="Search exercises">
+    </div>
+    <select class="f" id="fLevel" aria-label="Class level"><option value="">All class levels</option></select>
+    <select class="f" id="fPos" aria-label="Position"><option value="">Any position</option></select>
+    <select class="f" id="fVid" aria-label="Video"><option value="">Video or not</option><option value="1">Has a video</option><option value="0">No video yet</option></select>
+    <select class="f" id="fSort" aria-label="Sort"><option value="cat">By category</option><option value="az">A–Z</option></select>
+  </div>
+  <div class="meta-row"><span id="count">Loading the library…</span><span id="status"></span></div>
+  <p class="print-only" id="printNote" style="margin:0 0 10px"></p>
+  <div class="grid" id="grid"></div>
+
+  <footer class="foot">
+    <span>Boxing 4 Health · Joy, hope, laughter.</span>
+    <span id="freshness"></span>
+  </footer>
+</div>
+
+<dialog id="dlg" aria-labelledby="vTitle"></dialog>
+
+<script>
+var SHEET_ID="1VG_DphPIC7dIXeHY4DZkyU7ecRCcY_adQ9tW1hDmvtc";
+var SHEET_URL="https://docs.google.com/spreadsheets/d/"+SHEET_ID+"/gviz/tq?tqx=out:csv&headers=1";
+var FALLBACK=[["Exercise name", "Category", "Cognitive focus", "Class levels", "Position", "Time in class", "Equipment", "What it trains", "Set-up & how to run it", "Coaching cues", "Make it easier / harder", "Safety notes", "Instructor video link", "Participant video link"], ["Banded row to open the chest", "Strength", "", "Fighter, Warrior, Champion", "Seated", "2 × 12 reps", "Resistance band", "Pulls the upper back on line against a stooped posture — the anti-slouch strength move.", "Band anchored at chest height or looped around a post. Sit tall, arms long. Pull elbows back past the ribs, squeeze the shoulder blades, hold one count, release slowly.", "Chest proud, shoulders down.\nElbows brush the ribs.\nSqueeze — hold — slow release.", "Easier: lighter band, one arm at a time.\nHarder: heavier band, two-count hold, or stand to row and finish with a cross.", "Check bands for nicks before class. Never let a band snap back.", "", ""], ["Chair stand with arm drive", "Strength", "", "Fighter, Warrior, Champion, Champion Plus", "Standing", "2 × 8–10 reps", "Sturdy chair", "The most functional strength move in the room — legs and hips for getting out of a chair, a car, or off the floor.", "Chair against a wall. Feet hip-width, shins forward, nose over toes. Drive up through the whole foot with both arms punching forward and up. Lower slowly over three counts and tap the seat rather than collapsing into it.", "Nose over toes, then STAND TALL.\nBig arms — reach for the ceiling.\nSit down slow: three counts.", "Easier: hands on thighs, higher chair, or stand from a partial squat.\nHarder: hold light weights, pause at the bottom, single-leg tap, or call a punch combo at the top.", "Chair must not slide. Stand beside anyone who drops quickly or gets dizzy on the way up.", "", ""], ["Farmer's carry the long way", "Strength", "", "Warrior, Champion, Champion Plus", "Moving / footwork", "4 lengths of the room", "Two dumbbells, kettlebells or loaded bags", "Grip, trunk and gait under load — exactly the demand of carrying groceries in from the car.", "One weight in each hand, arms long, shoulders back. Walk the length of the room with big heel-to-toe steps, turn under control, walk back. Set the weights down, shake the hands out, repeat.", "Stand tall — don't lean.\nBig steps, long stride.\nCrush the handle.", "Easier: lighter weight, or load one hand only and walk beside a rail.\nHarder: heavier load, a turn at each cone, or count backward while carrying.", "Clear the lane. Weights go down when form changes, not after.", "", ""], ["PWR! Rock — big weight shift", "PWR!Moves", "", "Fighter, Warrior, Champion, Champion Plus", "Adaptable", "10 reps per side", "Chair or mat depending on position", "Large, committed weight shifts side to side — the base of stepping, turning and catching a loss of balance.", "Work the shift in lying, sitting, standing and then walking. Shift fully onto one side, let the opposite side lengthen, pause, then drive across to the other side. Full commitment each way, not a wiggle.", "All the way over — commit.\nLong on the top side.\nPause, then push across.", "Easier: seated, hands on a rail.\nHarder: standing with a foot lift at the end of each shift; add a reach across the body.", "Teach only if you hold current PWR!Moves certification. Standing versions need a rail or spotter for anyone unsteady.", "", ""], ["PWR! Step — big transitional step", "PWR!Moves", "", "Warrior, Champion, Champion Plus", "Standing", "8 steps per direction", "Rail or chair back for support", "Deliberate, oversized steps in every direction — the antidote to small shuffling steps, and the save when balance goes.", "From a tall stance take one big step forward, recover to centre, then step back, then side, then across. Land heel first, transfer weight fully, then return. Quality over speed.", "BIG step — bigger than feels necessary.\nHeel first, weight all the way over.\nRecover tall before the next one.", "Easier: hand on a rail, one direction only.\nHarder: no hands, direction called at random, or a punch on the landing.", "Teach only if you hold current PWR!Moves certification. Rail or spotter within reach for backward and crossover steps.", "", ""], ["PWR! Twist — axial rotation", "PWR!Moves", "", "Fighter, Warrior, Champion, Champion Plus", "Adaptable", "8–10 reps per side", "Chair or mat depending on position", "Rotation through the trunk with the head leading — what rolling over in bed, reaching behind and turning safely all depend on.", "Progress through the PWR! positions. Turn the head first and let the eyes lead, then rotate shoulders and trunk as far as is comfortable while the hips stay settled. Return slowly and repeat to the other side.", "Eyes lead, then shoulders.\nReach around, big and slow.\nBreathe out as you turn.", "Easier: seated, smaller range, hands crossed on the chest.\nHarder: standing with a reach, or rotate while stepping.", "Teach only if you hold current PWR!Moves certification. Slow the pace for anyone who gets dizzy with head turns.", "", ""], ["PWR! Up — antigravity extension", "PWR!Moves", "", "Fighter, Warrior, Champion, Champion Plus", "Adaptable", "10 reps in each position", "Chair or mat depending on position", "The PWR! Moves skill that fights flexed, stooped posture: big extension through the trunk and arms, held tall.", "Run the same move through the PWR! positions — lying, sitting, standing, then in a functional task. Reach both arms high and back, open the chest, lift the head, hold the tall position for a count, then release with control.", "BIG — reach as tall as you can.\nEyes up.\nHold it — own the top.", "Easier: seated with a smaller range, hands on thighs.\nHarder: standing, then add a step or a punch while holding the tall posture.", "Teach only if you hold current PWR!Moves certification. Watch for dizziness when the head comes up.", "", ""], ["Big march with full arm drive", "PD Warrior", "", "Fighter, Warrior, Champion, Champion Plus", "Standing", "3 × 30 sec", "Chair back or rail if needed", "Amplitude in its simplest form — knees high, arms swinging long, everything bigger than it wants to be.", "Stand tall behind a chair. March on the spot driving each knee to hip height and each arm to full swing, thumb past the hip and up past the chest. Count out loud to keep the effort honest. Build the size, then the pace.", "BIG knees, BIG arms.\nFull swing — front to back.\nEyes forward, chest up.", "Easier: seated march with the same big arms, or hands on the chair.\nHarder: march while travelling forward and back; add a number count or a call-and-answer.", "Rail or chair within reach. Stop if someone starts to freeze mid-march and reset with a big step.", "", ""], ["Fast intentional punch-outs", "PD Warrior", "", "Warrior, Champion, Champion Plus", "Standing", "4 × 20 sec, full rest between", "Gloves, heavy bag or mitts", "Speed and power on purpose — short bursts of the biggest, fastest punches someone can throw with good form.", "Set a 20-second burst. Full extension on every punch, full retraction to guard, as fast as form allows. Rest fully between bursts — the rest is what makes the next burst fast.", "Full extension — all the way out.\nSNAP it back.\nFast and BIG, not small and quick.", "Easier: 10-second bursts, one hand at a time, seated.\nHarder: longer bursts, add a called combo, or finish each burst with a big step.", "Watch grip and wrist alignment. Cut the burst if posture collapses or breathing stops.", "", ""], ["Four-corner reach", "Balance", "", "Warrior, Champion, Champion Plus", "Standing", "2 rounds of 8 reaches", "Cones or targets, rail nearby", "Dynamic balance at the edges of the base of support — reaching past comfortable and coming back under control.", "Place four targets around the participant — high, low, left, right. Coach calls a corner; they reach to it with a full arm, let the weight shift, then recover to a tall stance before the next call.", "Reach past where it feels safe — then come back tall.\nLet the hips move with the hand.\nRecover before the next call.", "Easier: two corners, hand on the rail between reaches.\nHarder: add a step to the reach, or call two corners in sequence.", "Rail or spotter on the reaching side. Keep low targets above knee height for anyone who can't return from a deep bend.", "", ""], ["Tandem stance at the rail", "Balance", "", "Fighter, Warrior, Champion", "Standing", "3 × 20 sec per side", "Rail, wall or chair back", "Narrows the base to build static balance — the foundation before any dynamic balance work.", "Stand with one foot directly in front of the other, heel to toe, fingertips resting on the rail. Hold tall and still, eyes forward on a fixed point. Switch feet and repeat.", "Eyes on one spot ahead.\nTall through the crown of the head.\nLight fingers — let the feet work.", "Easier: feet staggered rather than in line, two hands on the rail.\nHarder: fingertips off, then arms crossed, then add slow head turns or eyes closed for two counts (rail within reach).", "Always within arm's reach of support. Never take the eyes-closed version without a spotter standing beside them.", "", ""], ["Turn and step on the call", "Balance", "Dual-task", "Champion, Champion Plus", "Moving / footwork", "3 × 45 sec", "Open floor, cones optional", "Turning is where most falls happen — this rehearses wide, stepping turns with a reaction demand on top.", "Participant walks a short lane. Coach calls \"turn!\" at random. They turn using three or four wide steps — never pivoting on one foot — then continue walking the other way.", "Wide steps around the turn — no pivots.\nEyes lead where you're going.\nBig steps out of the turn.", "Easier: turns at a marked cone, at their own pace, hand on a rail.\nHarder: random calls, faster walk, or add a punch combo at each turn.", "Clear floor and good footwear. Spot anyone who freezes on turns — cue a big first step to break the freeze.", "", ""], ["Controlled descent to the mat", "Fall Training", "", "Champion, Champion Plus", "Floor / mat", "4–6 descents", "Thick mat, chair", "Practises going down on purpose — hands, hips and knees in the right order — so the body knows the pattern under pressure.", "From standing beside the chair, lower to one knee, then the other, then hands to the mat and hips down to the side. Slow and deliberate every time. Pair it with the floor-to-stand drill so every descent ends standing again.", "Knee — knee — hands — hip.\nChin tucked, head away from the floor.\nSlow is the whole point.", "Easier: descend only to one knee with hands on the chair.\nHarder: full descent without the chair; add a roll to the side.", "Thick mat and two staff. Not for anyone with recent fracture, joint replacement, or a physio restriction — check with Tina before running it.", "", ""], ["Floor-to-stand, step by step", "Fall Training", "", "Warrior, Champion, Champion Plus", "Floor / mat", "3–4 slow repetitions", "Mat, sturdy chair", "The skill that matters most after a fall: a rehearsed, ordered way back up to standing.", "Teach the sequence one stage at a time — roll to the side, push up to hands and knees, crawl to the chair, bring one knee up to half-kneel, hands on the seat, then drive up to stand. Practise each stage before linking them.", "One stage at a time — no rushing.\nStrongest leg does the work.\nHands stay on the chair until you're tall.", "Easier: start from hands and knees; practise only the half-kneel to stand.\nHarder: full sequence with no chair, or getting up from the other side.", "Two staff for anyone new to floor work. Screen out anyone whose physio has restricted floor transfers, and clear it with Tina first.", "", ""], ["Recovery step on a nudge", "Fall Training", "", "Warrior, Champion, Champion Plus", "Standing", "8–10 nudges per direction", "None — trained staff only", "Trains the fast, big protective step that stops a stumble from becoming a fall.", "Instructor stands in front, hands on the participant's shoulders, and gives a small, predictable nudge backward or sideways. The participant answers with one big recovery step and returns to a tall stance. Announce every nudge before it comes.", "One BIG step — don't shuffle.\nGet the foot out and under you.\nStand tall again before the next one.", "Easier: participant steps on a verbal cue only, no nudge.\nHarder: slightly larger nudges, less warning, or nudges from different directions.", "Only staff trained in this drill, and only with a second person behind the participant. Never surprise someone, and stop at the first sign of fear or fatigue.", "", ""], ["007 & Nerf Gun", "Cognitive", "Attention & reaction", "", "Standing", "", "Nerf gun, targets", "Reaction and aim under a cognitive load — the 007 drill run with a Nerf gun, for attention, tracking and a lot of laughter.", "See the demo video — the 007 sequence and how the Nerf gun is worked in are shown there.", "", "", "Keep shots below shoulder height and away from faces; eye protection if the group gets competitive.", "https://youtube.com/shorts/UCDi4txVYH8", ""], ["Boxing Station with Numbers", "Cognitive", "Attention & reaction", "", "Standing", "", "Numbered bag or target station, gloves", "A numbered boxing station: participants punch the numbers as they're called, holding the sequence while they keep working.", "See the demo video — the station layout and how the numbers are called are shown there.", "", "", "", "https://youtube.com/shorts/t2pJxnfeEa4", ""], ["Build-a-combo memory chain", "Cognitive", "Memory & recall", "Warrior, Champion", "Standing", "4–5 min", "Gloves, heavy bag or mitts", "Working memory: the group builds a punch combination one move at a time and must repeat the whole chain each round.", "First person throws one punch (e.g. jab). Next person repeats it and adds one (jab–cross). Continue around the group until the chain breaks, then start a new one. Number the punches (1 jab, 2 cross, 3 hook, 4 uppercut) for a verbal version.", "Say the combo out loud before you throw it.\nWatch the person before you.\nGuard up between punches.", "Easier: cap the chain at 4 moves and repeat it.\nHarder: add footwork (step back, slip) as moves; throw the chain in reverse.", "", "", ""], ["Category punch-out", "Cognitive", "Verbal fluency", "Fighter, Warrior", "Seated", "3 × 30 sec", "Gloves or none", "Verbal fluency with rhythm: name an item in a category on every punch — fruits, cities, animals.", "Seated with good posture. Coach calls a category; participant alternates jab–cross, naming one new item per punch. If they get stuck they keep punching until the next word comes.", "Sit tall, feet flat.\nLoud voice — project every word.\nKeep the rhythm even when the words slow down.", "Easier: broad categories (food).\nHarder: letter-restricted categories (animals starting with B); switch category mid-round.", "", "", ""], ["Cognitive Exerciser with Math Equations", "Cognitive", "Dual-task", "", "Standing", "", "Cognitive exerciser board, gloves", "Dual-task work on the cognitive exerciser: participants solve math equations while keeping the movement going.", "See the demo video — the set-up and the equation calls are walked through there.", "", "", "", "https://youtube.com/shorts/cZpfIANSp2Q", ""], ["Colour-call jab combos", "Cognitive", "Attention & reaction", "Fighter, Warrior", "Standing", "3 × 45 sec", "Gloves, focus mitts with coloured tape", "Reaction and selective attention: participants punch only the mitt colour the coach calls, ignoring the other.", "Tape one mitt red and one blue. Coach holds both mitts at chest height and calls a colour; participant throws a straight punch to that mitt only. Start with 3–4 seconds between calls, then shorten.", "Eyes on the mitts, not the coach's face.\nReset hands to guard after every punch.\nBig, deliberate punches — accuracy before speed.", "Easier: seated, one colour at a time.\nHarder: 'opposite' rule — punch the colour NOT called; add a third colour for a hook.", "Keep a chair or rail nearby for anyone with balance or freezing concerns.", "", ""], ["Count-back footwork", "Cognitive", "Dual-task", "Warrior, Champion", "Moving / footwork", "2 × 60 sec", "Floor ladder or tape line", "Classic dual-task: step patterns through a ladder while counting backward by 3s out loud.", "Participant walks the ladder with big steps (in-in-out-out). Once rhythm is steady, coach gives a starting number (e.g. 100) and they count back by 3 while stepping. Note whether steps or counting break down first.", "Big steps, heel first.\nKeep talking — it's fine to get the number wrong.\nArms swing with the step.", "Easier: count back by 1, or name days of the week backward.\nHarder: count back by 7; add a jab on every even number.", "Spot from the side for participants prone to freezing at transitions.", "", ""], ["Hand Exercise with Movement", "Cognitive", "Dual-task", "", "Adaptable", "", "", "Hand and finger patterns layered over a movement — dual-tasking the hands and the body at the same time.", "See the demo video — the hand pattern and the movement it pairs with are shown there.", "", "", "", "https://youtu.be/x3s5HCUP96s", ""], ["Numbered cone map", "Cognitive", "Visual-spatial", "Champion, Champion Plus", "Moving / footwork", "3–4 min", "6 numbered cones, gloves", "Visual-spatial planning: participants travel to cones in a called sequence and throw a set combo at each one.", "Scatter numbered cones around the space. Coach calls a sequence (e.g. 3–1–5). Participant walks to each in order and throws a 1–2 at each cone before moving on.", "Look first, then move.\nTurn with small steps, not a pivot.\nFinish the combo before you look for the next cone.", "Easier: two cones, colour-coded instead of numbered.\nHarder: longer sequences; call the sequence once and then remove the coach's cue.", "Clear trip hazards; use large turns for anyone who freezes on turning.", "", ""], ["Numbers on Wall", "Cognitive", "Visual-spatial", "", "Standing", "", "Numbered cards or targets on the wall, gloves", "Numbered targets on the wall: participants scan, find and punch the numbers called — visual searching, sequencing and reaction all at once.", "See the instructor demo video for the full set-up — Christine walks through it, and the second clip shows a class member performing it.", "", "", "", "https://youtube.com/shorts/Xk-suAeb7Yo", "https://youtube.com/shorts/8kf6A02PcZA"], ["Switch-the-rule drill", "Cognitive", "Sequencing & planning", "Champion, Champion Plus", "Standing", "3 × 45 sec", "Gloves, mitts", "Task-switching and inhibition: the meaning of the coach's signal changes mid-round.", "Round 1 rule: coach raises left mitt = jab, right mitt = cross. Midway, coach calls 'Switch!' and the rule flips. Later add a 'freeze' signal (both mitts down) where the participant holds guard.", "Pause, think, then punch.\nIt's okay to slow down after the switch.\nExhale on every punch.", "Easier: practise each rule for a full round before switching.\nHarder: switch every 10–15 seconds; add a squat on 'freeze'.", "", "", ""], ["Coin and card transfers", "Fine Motor", "", "Fighter, Warrior, Champion", "Seated", "2 × 60 sec", "Coins, a deck of cards, two small bowls", "Pinch grip and finger isolation — the movements behind buttons, zips and getting change out of a wallet.", "Bowl of coins on one side, empty bowl on the other. Move coins one at a time using thumb and each finger in turn. Then deal cards into two piles, one hand only. Switch hands and repeat.", "One coin at a time — no scooping.\nThumb to each finger in turn.\nSit tall, elbows off the table.", "Easier: larger objects (poker chips, clothes pegs).\nHarder: smaller coins, eyes on a target across the room, or count aloud while transferring.", "", "", ""], ["Hand-wrap race", "Fine Motor", "", "Fighter, Warrior, Champion, Champion Plus", "Seated", "3–4 min", "Hand wraps", "Real-world dexterity dressed up as a boxing ritual — fingers, thumbs and bilateral coordination.", "Everyone wraps their own hands, seated, with as little help as possible. Coach walks the room and cues rather than doing it for them. Time the second hand and compare to last week if the group likes a target.", "Thumb first, then spread the fingers.\nSmooth, firm, not tight.\nTake the time — this counts as training.", "Easier: shorter wraps, a partner holding the tail, or practise on the forearm only.\nHarder: time it, or wrap while naming the punches you'll throw.", "Watch for wraps tight enough to numb fingers — loosen and rewrap.", "", ""], ["Write it BIG", "Fine Motor", "", "Fighter, Warrior, Champion, Champion Plus", "Seated", "3–4 min", "Flip chart or paper and thick markers", "Amplitude applied to handwriting — pushes back on small, cramped writing with big, deliberate letters.", "Thick marker, large paper. Write the day's word (a name, the class level, \"CHAMPION\") in letters as large as the page allows, saying each letter out loud. Then write it once at normal size and compare.", "Letters as tall as your hand.\nSay each letter as you write it.\nSlow down — big beats fast.", "Easier: trace large pre-drawn letters.\nHarder: write with the non-dominant hand, or write while standing at an easel.", "", "", ""], ["Coach-and-echo call-backs", "Voice", "Verbal fluency", "Fighter, Warrior, Champion, Champion Plus", "Adaptable", "2–3 min, usually to close a round", "None", "Group projection with a cognitive edge — the coach calls a phrase, the room echoes it louder.", "Coach calls a short phrase (\"Hands up!\", \"Joy, hope, laughter!\", the class level's name) and the room echoes it, each round a little louder. Finish on the loudest one. Works well as the closer of a round while people catch their breath.", "Echo LOUDER than I called it.\nStand tall — voice follows posture.\nEveryone in, no passengers.", "Easier: two-word phrases, coach close by.\nHarder: longer phrases, echo in reverse order, or add a punch on each word.", "Watch for anyone straining; volume comes from breath, not throat.", "", ""], ["Long AHHH hold", "Voice", "", "Fighter, Warrior, Champion", "Seated", "3 holds, rest between", "Stopwatch or phone timer", "Breath support and steady volume — hold one clear note as long and as loud as comfortable, and track the seconds.", "Sit tall, feet flat. Big breath in through the nose, then hold \"AHHH\" at a strong, steady volume until the breath runs out. Time it and call out the number. Rest a full breath cycle between holds.", "Big breath — fill right down.\nSteady and strong, not shouting.\nSit tall; ribs open.", "Easier: shorter holds, or count to five out loud instead.\nHarder: add a second or two each week, or slide from low to high pitch within the hold.", "Stop if anyone gets light-headed. Keep water nearby and don't push through hoarseness.", "", ""], ["Loud count on every punch", "Voice", "", "Fighter, Warrior, Champion, Champion Plus", "Standing", "2 × 10 punches", "Gloves, bag or mitts", "Puts volume on the exhale — the easiest way to work voice without making it feel like a voice exercise.", "Count each punch out loud, projecting to the far wall rather than to the coach. Coach stands progressively further away so the volume has to rise. Everyone counts together on the last round.", "Send it to the back wall.\nBreath first, then the number.\nLouder than feels polite.", "Easier: count to five seated, coach close by.\nHarder: coach across the room, count backward, or name the punch instead of the number.", "Sips of water between rounds. Ease off if the voice sounds strained or hoarse.", "", ""]];
+var CATS=[
+ {n:"Strength",c:"--c-strength",d:"Power, pushing, pulling, legs"},
+ {n:"PWR!Moves",c:"--c-pwr",d:"Amplitude-first functional moves"},
+ {n:"PD Warrior",c:"--c-pdwarrior",d:"Big, fast, intentional movement"},
+ {n:"Balance",c:"--c-balance",d:"Static, dynamic, reaching"},
+ {n:"Fall Training",c:"--c-fall",d:"Floor work, getting up, recovery steps"},
+ {n:"Cognitive",c:"--c-cognitive",d:"Dual-task, memory, reaction"},
+ {n:"Fine Motor",c:"--c-finemotor",d:"Hands, grip, dexterity"},
+ {n:"Voice",c:"--c-voice",d:"Breath, volume, projection"}];
+var LEVELS=["Fighter","Warrior","Champion","Champion Plus"];
+var POSITIONS=["Seated","Standing","Moving / footwork","Floor / mat","Adaptable"];
+var $=function(s){return document.querySelector(s)};
+function cat(n){for(var i=0;i<CATS.length;i++){if(CATS[i].n===n)return CATS[i]}return {n:n||"Other",c:"--ink-2",d:""}}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function ytId(u){if(!u)return "";var m=String(u).match(/(?:shorts\/|watch\?v=|youtu\.be\/|embed\/)([A-Za-z0-9_-]{6,})/);return m?m[1]:""}
+function parseCSV(t){
+  var rows=[],row=[],cell="",q=false,i=0;
+  t=t.replace(/\r\n/g,"\n").replace(/\r/g,"\n");
+  for(;i<t.length;i++){var ch=t[i];
+    if(q){ if(ch==='"'){ if(t[i+1]==='"'){cell+='"';i++;} else q=false; } else cell+=ch; }
+    else if(ch==='"')q=true;
+    else if(ch===","){row.push(cell);cell="";}
+    else if(ch==="\n"){row.push(cell);rows.push(row);row=[];cell="";}
+    else cell+=ch;}
+  if(cell!==""||row.length){row.push(cell);rows.push(row);}
+  return rows;
+}
+var COLS=["title","category","focus","levels","position","duration","equipment","summary","setup","cues","progressions","safety","link1","link2"];
+function toItems(rows){
+  if(!rows.length)return [];
+  var head=rows[0].map(function(h){return String(h).trim().toLowerCase()});
+  var idx={};
+  COLS.forEach(function(k,n){idx[k]=n});
+  // match by header text when possible, else by position
+  var byText={"exercise name":"title","category":"category","cognitive focus":"focus","class levels":"levels",
+    "position":"position","time in class":"duration","equipment":"equipment","what it trains":"summary",
+    "set-up & how to run it":"setup","coaching cues":"cues","make it easier / harder":"progressions",
+    "safety notes":"safety","instructor video link":"link1","participant video link":"link2"};
+  var found={};
+  head.forEach(function(h,n){if(byText[h])found[byText[h]]=n});
+  if(Object.keys(found).length>=8)idx=found;
+  var out=[];
+  for(var r=1;r<rows.length;r++){
+    var row=rows[r],o={};
+    COLS.forEach(function(k){var n=idx[k];o[k]=(n==null||row[n]==null)?"":String(row[n]).trim()});
+    if(!o.title)continue;
+    o.levelList=o.levels?o.levels.split(",").map(function(s){return s.trim()}).filter(Boolean):[];
+    out.push(o);
+  }
+  return out;
+}
+var items=[],filter={q:"",cat:"",level:"",pos:"",vid:"",sort:"cat"};
+try{var s=JSON.parse(localStorage.getItem("b4hFilter")||"{}");for(var k in s)if(k!=="q")filter[k]=s[k];}catch(e){}
+function saveFilter(){try{localStorage.setItem("b4hFilter",JSON.stringify({cat:filter.cat,level:filter.level,pos:filter.pos,vid:filter.vid,sort:filter.sort}))}catch(e){}}
+LEVELS.forEach(function(l){$("#fLevel").insertAdjacentHTML("beforeend","<option>"+l+"</option>")});
+POSITIONS.forEach(function(p){$("#fPos").insertAdjacentHTML("beforeend","<option>"+p+"</option>")});
+["fLevel","fPos","fVid","fSort"].forEach(function(id,n){
+  var key=["level","pos","vid","sort"][n],el=$("#"+id);
+  el.value=filter[key];
+  el.addEventListener("change",function(){filter[key]=el.value;saveFilter();render();});
+});
+$("#q").addEventListener("input",function(e){filter.q=e.target.value.trim().toLowerCase();render();});
+$("#printBtn").addEventListener("click",function(){window.print()});
+function hasVid(i){return !!(ytId(i.link1)||ytId(i.link2)||i.link1||i.link2)}
+function renderCats(){
+  var counts={};items.forEach(function(i){counts[i.category]=(counts[i.category]||0)+1});
+  var html='<button class="round" data-c="" aria-pressed="'+(!filter.cat)+'" style="--c:var(--gold)"><b>All rounds</b><span class="rc">'+items.length+' exercise'+(items.length===1?"":"s")+'</span></button>';
+  CATS.forEach(function(c){html+='<button class="round" data-c="'+esc(c.n)+'" aria-pressed="'+(filter.cat===c.n)+'" style="--c:var('+c.c+')"><b>'+esc(c.n)+'</b><span class="rc">'+(counts[c.n]||0)+' · '+esc(c.d)+'</span></button>'});
+  $("#cats").innerHTML=html;
+}
+$("#cats").addEventListener("click",function(e){var b=e.target.closest(".round");if(!b)return;filter.cat=b.dataset.c;saveFilter();render();});
+function visible(){
+  var r=items.filter(function(i){
+    if(filter.cat&&i.category!==filter.cat)return false;
+    if(filter.level&&i.levelList.indexOf(filter.level)<0)return false;
+    if(filter.pos&&i.position!==filter.pos)return false;
+    if(filter.vid==="1"&&!hasVid(i))return false;
+    if(filter.vid==="0"&&hasVid(i))return false;
+    if(filter.q){
+      var hay=[i.title,i.summary,i.setup,i.cues,i.progressions,i.equipment,i.safety,i.category,i.focus].join(" ").toLowerCase();
+      if(hay.indexOf(filter.q)<0)return false;}
+    return true;});
+  var order=function(i){for(var n=0;n<CATS.length;n++)if(CATS[n].n===i.category)return n;return 99};
+  if(filter.sort==="az")r.sort(function(a,b){return a.title.localeCompare(b.title)});
+  else r.sort(function(a,b){return order(a)-order(b)||a.title.localeCompare(b.title)});
+  return r;
+}
+function thumb(i){
+  var id=ytId(i.link1)||ytId(i.link2);
+  if(id)return '<img src="https://i.ytimg.com/vi/'+esc(id)+'/hqdefault.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M3 1.5v9l7.5-4.5z" fill="currentColor"/></svg></span>';
+  if(i.link1||i.link2)return '<div class="ph">Video link</div>';
+  return '<div class="ph"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="6" width="13" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M16 10.5l5-3v9l-5-3" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>No demo video yet</div>';
+}
+function printDetail(i){
+  var s=function(h,t){return t?"<h4>"+h+"</h4><p>"+esc(t)+"</p>":""};
+  return '<div class="detail">'+s("Set-up",i.setup)+s("Cues",i.cues)+s("Easier / harder",i.progressions)+s("Safety",i.safety)+'</div>';
+}
+function render(){
+  renderCats();
+  var r=visible();
+  $("#count").textContent=items.length?(r.length+" of "+items.length+" exercise"+(items.length===1?"":"s")+(filter.cat?" in "+filter.cat:"")):"";
+  $("#printNote").textContent="Boxing 4 Health · Exercise Idea Library — "+r.length+" exercise"+(r.length===1?"":"s")+(filter.cat?", "+filter.cat:"")+(filter.level?", "+filter.level+" level":"")+" · printed "+new Date().toLocaleDateString();
+  if(!items.length){$("#grid").innerHTML='<div class="empty">The library list couldn\'t be loaded. Check your connection and reload the page.</div>';return;}
+  if(!r.length){$("#grid").innerHTML='<div class="empty">Nothing matches those filters. Try clearing the search or choosing “All rounds”.</div>';return;}
+  $("#grid").innerHTML=r.map(function(i,n){
+    var c=cat(i.category),lv=i.levelList;
+    return '<button class="card" data-t="'+esc(i.title)+'" style="--c:var('+c.c+')">'+
+      '<div class="thumb">'+thumb(i)+'</div><div class="card-b"><h3>'+esc(i.title)+'</h3><p>'+esc(i.summary)+'</p>'+
+      '<div class="tags"><span class="tag cat"><span class="dot"></span>'+esc(c.n)+'</span>'+
+      (i.focus?'<span class="tag">'+esc(i.focus)+'</span>':"")+
+      (lv.length?'<span class="tag">'+esc(lv.length===LEVELS.length?"All levels":lv.join(" · "))+'</span>':"")+
+      (i.position?'<span class="tag">'+esc(i.position)+'</span>':"")+
+      '</div>'+printDetail(i)+'</div></button>';
+  }).join("");
+}
+$("#grid").addEventListener("click",function(e){
+  var c=e.target.closest(".card");if(!c)return;
+  var t=c.dataset.t;
+  for(var n=0;n<items.length;n++)if(items[n].title===t){openDlg(items[n]);return}
+});
+function frame(url,label){
+  var id=ytId(url);
+  if(!id)return '<div class="pl"><h5>'+label+'</h5><a class="btn" href="'+esc(url)+'" target="_blank" rel="noopener">Open video</a></div>';
+  return '<div class="pl"><h5>'+label+'</h5><div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/'+esc(id)+'?rel=0" title="'+label+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>';
+}
+function openDlg(i){
+  var c=cat(i.category),lv=i.levelList;
+  var sec=function(h,t){return t?'<div class="sec"><h4>'+h+'</h4><p>'+esc(t)+'</p></div>':""};
+  var vids="";
+  if(i.link1||i.link2){
+    vids='<div class="players'+((i.link1&&i.link2)?" two":"")+'">'+
+      (i.link1?frame(i.link1,"Instructor demo"):"")+(i.link2?frame(i.link2,"Participant version"):"")+'</div>';
+  }else{
+    vids='<div class="noplayer">No demo video for this one yet.</div>';
+  }
+  $("#dlg").innerHTML='<div class="dlg-h"><div><span class="tag cat" style="--c:var('+c.c+')"><span class="dot" style="--c:var('+c.c+')"></span>'+esc(c.n)+(i.focus?" · "+esc(i.focus):"")+'</span><h2 id="vTitle">'+esc(i.title)+'</h2></div>'+
+    '<button class="x" data-close aria-label="Close"><svg width="20" height="20" viewBox="0 0 20 20"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>'+
+    '<div class="dlg-b">'+vids+
+    '<div class="facts">'+
+      (lv.length?'<span>Class level: <b>'+esc(lv.length===LEVELS.length?"All levels":lv.join(", "))+'</b></span>':"")+
+      (i.position?'<span>Position: <b>'+esc(i.position)+'</b></span>':"")+
+      (i.duration?'<span>Time: <b>'+esc(i.duration)+'</b></span>':"")+
+      (i.equipment?'<span>Equipment: <b>'+esc(i.equipment)+'</b></span>':"")+
+    '</div>'+
+    sec("What it trains",i.summary)+sec("Set-up &amp; how to run it",i.setup)+
+    '<div class="cols">'+sec("Coaching cues",i.cues)+sec("Make it easier / harder",i.progressions)+'</div>'+
+    sec("Safety notes",i.safety)+'</div>';
+  $("#dlg").showModal();
+}
+$("#dlg").addEventListener("click",function(e){
+  if(e.target===e.currentTarget||e.target.closest("[data-close]")){$("#dlg").innerHTML="";$("#dlg").close();}
+});
+$("#dlg").addEventListener("close",function(){$("#dlg").innerHTML="";});
+
+items=toItems(FALLBACK);render();
+$("#status").textContent="Checking for updates…";
+fetch(SHEET_URL+"&_="+Date.now(),{cache:"no-store"}).then(function(r){
+  if(!r.ok)throw new Error("http "+r.status);
+  return r.text();
+}).then(function(t){
+  var live=toItems(parseCSV(t));
+  if(live.length){items=live;render();$("#status").textContent="";
+    $("#freshness").textContent="List loaded "+new Date().toLocaleTimeString([], {hour:"numeric",minute:"2-digit"})+" from the B4H exercise sheet.";}
+  else{$("#status").textContent="";}
+}).catch(function(){
+  $("#status").textContent="";
+  $("#freshness").textContent="Showing the saved copy of the list — live updates weren't reachable.";
+});
+</script>
+</body>
+</html>
